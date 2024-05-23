@@ -3,11 +3,13 @@ package ru.ainur.bank.dto.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
+@Builder
 @Schema(description = "Запрос на перевод денег")
 public class MoneyTransferRequest {
     @Schema(description = "ID счета получателя", example = "2")

@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 import ru.ainur.bank.dto.request.MoneyTransferRequest;
 import ru.ainur.bank.dto.request.user.UserRegistrationRequest;
 import ru.ainur.bank.exception.MoneyTransferException;
+import ru.ainur.bank.exception.NegativeBalanceException;
 import ru.ainur.bank.exception.UserUpdateException;
 import ru.ainur.bank.model.BankAccount;
 import ru.ainur.bank.model.User;
 import ru.ainur.bank.repository.BankAccountRepository;
+
+import java.math.BigDecimal;
 
 @Service
 @AllArgsConstructor
@@ -45,7 +48,9 @@ public class BankAccountService {
 
     public BankAccount createBankAccountForUser(UserRegistrationRequest request, User newUser) {
         BankAccount bankAccount = createBankAccountFromUserRegistrationRequest(request, newUser);
-
+        if (bankAccount.getBalance().compareTo(BigDecimal.ZERO) < 0) {
+            throw new NegativeBalanceException("You can not create bank account with negative balance");
+        }
         return bankAccountRepository.save(bankAccount);
     }
 
