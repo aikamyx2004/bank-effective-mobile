@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: bank
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/bank
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        jdbc:
+          batch_size: 100
+
+security:
+  jwt:
+    secret-key: 67d5561c2fdf0b887eb0f0dd4454d2d17f76a065bf62bf0b8972b15b03770217
+    expiration-time: 600000
